@@ -21,15 +21,18 @@ fi
 
 cp student-submission/ListExamples.java grading-area
 cp TestListExamples.java grading-area
+cp lib/hamcrest-core-1.3.jar grading-area
+cp lib/junit-4.13.2.jar grading-area
 
-javac -cp ".;lib/hamcrest-core-1.3.jar;lib/junit-4.13.2.jar" grading-area/*.java
-java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore grading-area/TestListExamples > grading-area/test-results.txt
+javac -cp ".;grading-area/hamcrest-core-1.3.jar;grading-area/junit-4.13.2.jar" grading-area/*.java
+cd grading-area
+java -cp ".;junit-4.13.2.jar;hamcrest-core-1.3.jar" org.junit.runner.JUnitCore TestListExamples > test-results.txt
 
 
-if  grep -q "FAILURES" grading-area/test-results.txt 
+if  grep -q "FAILURES" test-results.txt 
 then 
-    echo "your code did not pass all tests" >> grading-area/test-results.txt
+    echo "your code did not pass all tests" >> test-results.txt
 else 
-    echo "your code passed the tests" >> grading-area/test-results.txt
+    echo "your code passed the tests" >> test-results.txt
     
 fi
